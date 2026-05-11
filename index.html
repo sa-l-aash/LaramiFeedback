@@ -68,10 +68,11 @@
       margin-top: 20px;
     }
 
+    input,
     textarea {
       width: 100%;
-      max-width: 100%;
       padding: 10px;
+      margin-bottom: 10px;
       font-size: 14px;
       border-radius: 6px;
       border: 1px solid #ccc;
@@ -99,12 +100,13 @@
 
 <div class="container">
 
-  <!-- LOGO -->
   <img src="LaramiLogo.png" alt="Larami House Logo" class="logo">
 
-  <!-- TITLE TEXT -->
   <div class="title">Guest Feedback Form Larami House Narok 🏡</div>
-  <div class="subtitle">Share your experience and help us improve.</div>
+
+  <div class="subtitle">
+    Share your experience and help us improve.
+  </div>
 
   <h2>How was your experience?</h2>
 
@@ -117,33 +119,106 @@
   </div>
 
   <div id="feedbackForm">
+
     <h3>We're sorry we missed the mark.</h3>
+
     <p>Please tell us how we can improve.</p>
 
-    <textarea id="comment" rows="5" placeholder="Type your feedback here..."></textarea>
+    <input
+      type="text"
+      id="guestName"
+      placeholder="Your name (optional)"
+    >
 
-    <button class="submit" onclick="submitFeedback()">Submit Feedback</button>
+    <input
+      type="text"
+      id="room"
+      placeholder="Room"
+    >
+
+    <textarea
+      id="comment"
+      rows="5"
+      placeholder="Type your feedback here..."
+    ></textarea>
+
+    <button
+      class="submit"
+      onclick="submitFeedback()"
+    >
+      Submit Feedback
+    </button>
+
   </div>
 
 </div>
 
 <script>
+
+  let selectedRating = 0;
+
   function handleRating(rating) {
 
+    selectedRating = rating;
+
     if (rating <= 3) {
+
       document.getElementById('feedbackForm').style.display = 'block';
+
     } else {
+
       window.location.href =
       "https://g.page/r/CVpS_cOBUCQjEBM/review";
     }
   }
 
   function submitFeedback() {
-    const comment = document.getElementById('comment').value;
 
-    console.log(comment);
-    alert("Thank you for your feedback!");
+    const guestName =
+      document.getElementById('guestName').value;
+
+    const room =
+      document.getElementById('room').value;
+
+    const comment =
+      document.getElementById('comment').value;
+
+    fetch("https://script.google.com/macros/s/AKfycbwHPfExoW5bmvx-r-1g1E8knKzk5I3qJWvuX701kh6D8q8CC_UlKf1MxbJohuR3bMKE7g/exec", {
+
+      method: "POST",
+
+      body: JSON.stringify({
+        name: guestName,
+        room: room,
+        rating: selectedRating,
+        feedback: comment
+      })
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+      alert("Thank you for your feedback!");
+
+      document.getElementById('feedbackForm').style.display = 'none';
+
+      document.getElementById('guestName').value = "";
+
+      document.getElementById('room').value = "";
+
+      document.getElementById('comment').value = "";
+    })
+
+    .catch(error => {
+
+      alert("Something went wrong. Please try again.");
+
+      console.error(error);
+    });
   }
+
 </script>
 
 </body>
