@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guest Feedback</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 500px;
+      margin: 40px auto;
+      text-align: center;
+    }
+
+    .logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .stars button {
+      font-size: 30px;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    #feedbackForm {
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGO -->
+<img src="LaramiLogo.png" alt="Larami House Logo" class="logo">
+
+<!-- TITLE TEXT -->
+<div class="title">Guest Feedback Form Larami House Narok 🏡</div>
+<div class="subtitle">Share your experience and help us improve.</div>
+
+<h2>How was your experience?</h2>
+
+<div class="stars">
+  <button onclick="handleRating(1)">⭐</button>
+  <button onclick="handleRating(2)">⭐</button>
+  <button onclick="handleRating(3)">⭐</button>
+  <button onclick="handleRating(4)">⭐</button>
+  <button onclick="handleRating(5)">⭐</button>
+</div>
+
+<div id="feedbackForm">
+  <h3>We're sorry we missed the mark.</h3>
+  <p>Please tell us how we can improve.</p>
+
+  <textarea id="comment" rows="5" cols="40"></textarea><br><br>
+
+  <button onclick="submitFeedback()">Submit Feedback</button>
+</div>
+
+<script>
+  function handleRating(rating) {
+
+    if (rating <= 3) {
+      document.getElementById('feedbackForm').style.display = 'block';
+    } else {
+
+      window.location.href =
+      "https://g.page/r/CVpS_cOBUCQjEBM/review";
+    }
+  }
+
+  function submitFeedback() {
+    const comment = document.getElementById('comment').value;
+
+    console.log(comment);
+    alert("Thank you for your feedback!");
+  }
+</script>
+
+</body>
+</html>
