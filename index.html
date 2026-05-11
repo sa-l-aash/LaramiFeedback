@@ -57,6 +57,11 @@
       background: none;
       cursor: pointer;
       padding: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .stars button:hover {
+      transform: scale(1.15);
     }
 
     .stars button:active {
@@ -71,8 +76,8 @@
     input,
     textarea {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
       font-size: 14px;
       border-radius: 6px;
       border: 1px solid #ccc;
@@ -88,10 +93,19 @@
       color: #fff;
       border-radius: 6px;
       cursor: pointer;
+      width: 100%;
     }
 
     button.submit:hover {
       opacity: 0.85;
+    }
+
+    #successMessage {
+      display: none;
+      margin-top: 20px;
+      font-size: 16px;
+      color: green;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -100,16 +114,22 @@
 
 <div class="container">
 
+  <!-- LOGO -->
   <img src="LaramiLogo.png" alt="Larami House Logo" class="logo">
 
-  <div class="title">Guest Feedback Form Larami House Narok 🏡</div>
+  <!-- TITLE -->
+  <div class="title">
+    Guest Feedback Form Larami House Narok 🏡
+  </div>
 
   <div class="subtitle">
     Share your experience and help us improve.
   </div>
 
+  <!-- QUESTION -->
   <h2>How was your experience?</h2>
 
+  <!-- STARS -->
   <div class="stars">
     <button onclick="handleRating(1)">⭐</button>
     <button onclick="handleRating(2)">⭐</button>
@@ -118,6 +138,7 @@
     <button onclick="handleRating(5)">⭐</button>
   </div>
 
+  <!-- FEEDBACK FORM -->
   <div id="feedbackForm">
 
     <h3>We're sorry we missed the mark.</h3>
@@ -149,6 +170,11 @@
       Submit Feedback
     </button>
 
+  </div>
+
+  <!-- SUCCESS MESSAGE -->
+  <div id="successMessage">
+    Thank you for your feedback 💚
   </div>
 
 </div>
@@ -183,6 +209,12 @@
     const comment =
       document.getElementById('comment').value;
 
+    // Show success instantly
+    document.getElementById('feedbackForm').style.display = 'none';
+
+    document.getElementById('successMessage').style.display = 'block';
+
+    // Send data silently in background
     fetch("https://script.google.com/macros/s/AKfycbwHPfExoW5bmvx-r-1g1E8knKzk5I3qJWvuX701kh6D8q8CC_UlKf1MxbJohuR3bMKE7g/exec", {
 
       method: "POST",
@@ -200,22 +232,20 @@
 
     .then(data => {
 
-      alert("Thank you for your feedback!");
-
-      document.getElementById('feedbackForm').style.display = 'none';
+      console.log("Feedback saved");
 
       document.getElementById('guestName').value = "";
 
       document.getElementById('room').value = "";
 
       document.getElementById('comment').value = "";
+
     })
 
     .catch(error => {
 
-      alert("Something went wrong. Please try again.");
-
       console.error(error);
+
     });
   }
 
