@@ -2,15 +2,16 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guest Feedback</title>
+  <title>Larami House Feedback</title>
 
   <style>
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
-      text-align: center;
       background: #fff;
+      text-align: center;
     }
 
     .container {
@@ -21,26 +22,51 @@
     .logo {
       width: 35%;
       max-width: 140px;
-      height: auto;
       margin-bottom: 10px;
     }
 
     .title {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
       margin-bottom: 6px;
     }
 
     .subtitle {
       font-size: 14px;
-      margin-bottom: 20px;
       color: #555;
+      margin-bottom: 20px;
       line-height: 1.4;
     }
 
     h2 {
-      font-size: 18px;
       margin-bottom: 15px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .source-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .source-group p {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .source-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
     }
 
     .stars {
@@ -48,16 +74,17 @@
       justify-content: center;
       gap: 10px;
       flex-wrap: wrap;
+      margin-top: 15px;
       margin-bottom: 20px;
     }
 
     .stars button {
-      font-size: 32px;
+      font-size: 34px;
       border: none;
       background: none;
       cursor: pointer;
-      padding: 10px;
       transition: transform 0.2s ease;
+      padding: 5px;
     }
 
     .stars button:hover {
@@ -66,77 +93,126 @@
 
     #feedbackForm {
       display: none;
-      margin-top: 20px;
       text-align: left;
-    }
-
-    input,
-    textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 12px;
-      font-size: 14px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-
-    .source-group {
-      margin-bottom: 15px;
-    }
-
-    .source-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 14px;
+      margin-top: 20px;
     }
 
     button.submit {
-      margin-top: 10px;
-      padding: 12px 18px;
-      font-size: 14px;
+      width: 100%;
+      padding: 14px;
       border: none;
-      background: #000;
-      color: #fff;
+      background: black;
+      color: white;
+      font-size: 14px;
       border-radius: 6px;
       cursor: pointer;
-      width: 100%;
+      margin-top: 10px;
+    }
+
+    button.submit:hover {
+      opacity: 0.9;
     }
 
     #successMessage {
       display: none;
-      margin-top: 20px;
-      font-size: 16px;
+      margin-top: 25px;
       color: green;
+      font-size: 16px;
       font-weight: bold;
     }
+
   </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
+  <!-- LOGO -->
   <img src="LaramiLogo.png" alt="Larami House Logo" class="logo">
 
+  <!-- TITLE -->
   <div class="title">
-    Guest Feedback Form Larami House Narok 🏡
+    Larami House Narok 🏡
   </div>
 
   <div class="subtitle">
     Share your experience and help us improve.
   </div>
 
+  <!-- NAME -->
+  <input
+    type="text"
+    id="guestName"
+    placeholder="Your name (optional)"
+  >
+
+  <!-- SOURCE -->
+  <div class="source-group">
+
+    <p>Where did you hear about us?</p>
+
+    <label>
+      <input type="checkbox" value="TikTok" class="source">
+      TikTok
+    </label>
+
+    <label>
+      <input type="checkbox" value="Instagram" class="source">
+      Instagram
+    </label>
+
+    <label>
+      <input type="checkbox" value="Facebook" class="source">
+      Facebook
+    </label>
+
+    <label>
+      <input type="checkbox" value="Booking.com" class="source">
+      Booking.com
+    </label>
+
+    <label>
+      <input type="checkbox" value="Airbnb" class="source">
+      Airbnb
+    </label>
+
+    <label>
+      <input type="checkbox" value="YouTube" class="source">
+      YouTube
+    </label>
+
+    <label>
+      <input type="checkbox" value="Google Maps" class="source">
+      Google Maps
+    </label>
+
+    <label>
+      <input type="checkbox" value="Friend" class="source">
+      Friend
+    </label>
+
+  </div>
+
+  <!-- RATING -->
   <h2>How was your experience?</h2>
 
   <div class="stars">
+
     <button onclick="handleRating(1)">⭐</button>
+
     <button onclick="handleRating(2)">⭐</button>
+
     <button onclick="handleRating(3)">⭐</button>
+
     <button onclick="handleRating(4)">⭐</button>
+
     <button onclick="handleRating(5)">⭐</button>
+
   </div>
 
+  <!-- LOW RATING FEEDBACK FORM -->
   <div id="feedbackForm">
 
     <h3>We're sorry we missed the mark.</h3>
@@ -145,39 +221,9 @@
 
     <input
       type="text"
-      id="guestName"
-      placeholder="Your name (optional)"
-    >
-
-    <input
-      type="text"
       id="room"
       placeholder="Room"
     >
-
-    <div class="source-group">
-
-  <p><strong>Where did you hear about us?</strong></p>
-
-  <label><input type="checkbox" value="TikTok" class="source"> TikTok</label>
-
-  <label><input type="checkbox" value="Instagram" class="source"> Instagram</label>
-
-  <label><input type="checkbox" value="Facebook" class="source"> Facebook</label>
-
-  <label><input type="checkbox" value="Booking.com" class="source"> Booking.com</label>
-
-  <label><input type="checkbox" value="Airbnb" class="source"> Airbnb</label>
-
-  <label><input type="checkbox" value="YouTube" class="source"> YouTube</label>
-
-  <label><input type="checkbox" value="Google Maps" class="source"> Google Maps</label>
-
-  <label><input type="checkbox" value="Friend" class="source"> Friend</label>
-
-</div>
-
-    </div>
 
     <textarea
       id="comment"
@@ -194,6 +240,7 @@
 
   </div>
 
+  <!-- SUCCESS -->
   <div id="successMessage">
     Thank you for your feedback 💚
   </div>
@@ -204,19 +251,73 @@
 
   let selectedRating = 0;
 
+  function getSources() {
+
+    return Array
+      .from(document.querySelectorAll('.source:checked'))
+      .map(el => el.value)
+      .join(', ');
+
+  }
+
   function handleRating(rating) {
 
     selectedRating = rating;
 
+    const guestName =
+      document.getElementById('guestName').value;
+
+    const sources = getSources();
+
+    // LOW RATINGS
     if (rating <= 3) {
 
       document.getElementById('feedbackForm').style.display = 'block';
 
-    } else {
-
-      window.location.href =
-      "https://g.page/r/CVpS_cOBUCQjEBM/review";
     }
+
+    // HIGH RATINGS
+    else {
+
+      fetch(
+        "https://script.google.com/macros/s/AKfycbwHPfExoW5bmvx-r-1g1E8knKzk5I3qJWvuX701kh6D8q8CC_UlKf1MxbJohuR3bMKE7g/exec",
+        {
+
+          method: "POST",
+
+          body: JSON.stringify({
+
+            name: guestName,
+            room: "",
+            rating: rating,
+            feedback: "",
+            source: sources
+
+          })
+
+        }
+      )
+
+      .then(response => response.json())
+
+      .then(data => {
+
+        window.location.href =
+          "https://g.page/r/CVpS_cOBUCQjEBM/review";
+
+      })
+
+      .catch(error => {
+
+        console.error(error);
+
+        window.location.href =
+          "https://g.page/r/CVpS_cOBUCQjEBM/review";
+
+      });
+
+    }
+
   }
 
   function submitFeedback() {
@@ -230,28 +331,32 @@
     const comment =
       document.getElementById('comment').value;
 
-    const sources =
-      Array.from(document.querySelectorAll('.source:checked'))
-      .map(el => el.value)
-      .join(', ');
+    const sources = getSources();
 
+    // Hide form
     document.getElementById('feedbackForm').style.display = 'none';
 
+    // Show success
     document.getElementById('successMessage').style.display = 'block';
 
-    fetch("https://script.google.com/macros/s/AKfycbwHPfExoW5bmvx-r-1g1E8knKzk5I3qJWvuX701kh6D8q8CC_UlKf1MxbJohuR3bMKE7g/exec", {
+    fetch(
+      "https://script.google.com/macros/s/AKfycbwHPfExoW5bmvx-r-1g1E8knKzk5I3qJWvuX701kh6D8q8CC_UlKf1MxbJohuR3bMKE7g/exec",
+      {
 
-      method: "POST",
+        method: "POST",
 
-      body: JSON.stringify({
-        name: guestName,
-        room: room,
-        rating: selectedRating,
-        feedback: comment,
-        source: sources
-      })
+        body: JSON.stringify({
 
-    })
+          name: guestName,
+          room: room,
+          rating: selectedRating,
+          feedback: comment,
+          source: sources
+
+        })
+
+      }
+    )
 
     .then(response => response.json())
 
@@ -266,6 +371,7 @@
       console.error(error);
 
     });
+
   }
 
 </script>
