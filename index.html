@@ -64,13 +64,10 @@
       transform: scale(1.15);
     }
 
-    .stars button:active {
-      transform: scale(1.2);
-    }
-
     #feedbackForm {
       display: none;
       margin-top: 20px;
+      text-align: left;
     }
 
     input,
@@ -84,6 +81,16 @@
       box-sizing: border-box;
     }
 
+    .source-group {
+      margin-bottom: 15px;
+    }
+
+    .source-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
     button.submit {
       margin-top: 10px;
       padding: 12px 18px;
@@ -94,10 +101,6 @@
       border-radius: 6px;
       cursor: pointer;
       width: 100%;
-    }
-
-    button.submit:hover {
-      opacity: 0.85;
     }
 
     #successMessage {
@@ -114,10 +117,8 @@
 
 <div class="container">
 
-  <!-- LOGO -->
   <img src="LaramiLogo.png" alt="Larami House Logo" class="logo">
 
-  <!-- TITLE -->
   <div class="title">
     Guest Feedback Form Larami House Narok 🏡
   </div>
@@ -126,10 +127,8 @@
     Share your experience and help us improve.
   </div>
 
-  <!-- QUESTION -->
   <h2>How was your experience?</h2>
 
-  <!-- STARS -->
   <div class="stars">
     <button onclick="handleRating(1)">⭐</button>
     <button onclick="handleRating(2)">⭐</button>
@@ -138,7 +137,6 @@
     <button onclick="handleRating(5)">⭐</button>
   </div>
 
-  <!-- FEEDBACK FORM -->
   <div id="feedbackForm">
 
     <h3>We're sorry we missed the mark.</h3>
@@ -157,6 +155,30 @@
       placeholder="Room"
     >
 
+    <div class="source-group">
+
+  <p><strong>Where did you hear about us?</strong></p>
+
+  <label><input type="checkbox" value="TikTok" class="source"> TikTok</label>
+
+  <label><input type="checkbox" value="Instagram" class="source"> Instagram</label>
+
+  <label><input type="checkbox" value="Facebook" class="source"> Facebook</label>
+
+  <label><input type="checkbox" value="Booking.com" class="source"> Booking.com</label>
+
+  <label><input type="checkbox" value="Airbnb" class="source"> Airbnb</label>
+
+  <label><input type="checkbox" value="YouTube" class="source"> YouTube</label>
+
+  <label><input type="checkbox" value="Google Maps" class="source"> Google Maps</label>
+
+  <label><input type="checkbox" value="Friend" class="source"> Friend</label>
+
+</div>
+
+    </div>
+
     <textarea
       id="comment"
       rows="5"
@@ -172,7 +194,6 @@
 
   </div>
 
-  <!-- SUCCESS MESSAGE -->
   <div id="successMessage">
     Thank you for your feedback 💚
   </div>
@@ -209,12 +230,15 @@
     const comment =
       document.getElementById('comment').value;
 
-    // Show success instantly
+    const sources =
+      Array.from(document.querySelectorAll('.source:checked'))
+      .map(el => el.value)
+      .join(', ');
+
     document.getElementById('feedbackForm').style.display = 'none';
 
     document.getElementById('successMessage').style.display = 'block';
 
-    // Send data silently in background
     fetch("https://script.google.com/macros/s/AKfycbwHPfExoW5bmvx-r-1g1E8knKzk5I3qJWvuX701kh6D8q8CC_UlKf1MxbJohuR3bMKE7g/exec", {
 
       method: "POST",
@@ -223,7 +247,8 @@
         name: guestName,
         room: room,
         rating: selectedRating,
-        feedback: comment
+        feedback: comment,
+        source: sources
       })
 
     })
@@ -233,12 +258,6 @@
     .then(data => {
 
       console.log("Feedback saved");
-
-      document.getElementById('guestName').value = "";
-
-      document.getElementById('room').value = "";
-
-      document.getElementById('comment').value = "";
 
     })
 
