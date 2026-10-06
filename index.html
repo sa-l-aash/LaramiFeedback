@@ -271,14 +271,13 @@
       document.getElementById('redirectHook').style.display = 'none';
     } 
     else {
-      // 1. Hide the negative feedback form if they clicked 1-3 previously
+      // 1. Hide the negative feedback form
       document.getElementById('feedbackForm').style.display = 'none';
       
-      // 2. Show the visual hook and spinner immediately
+      // 2. Show the visual hook immediately so they see it while the browser loads Maps
       document.getElementById('redirectHook').style.display = 'block';
 
-      // 3. Send data to Google Sheets WITHOUT forcing the user to wait
-      // 'keepalive: true' ensures the data finishes sending even as the page redirects
+      // 3. Fire the data to Google Sheets in the background (keepalive ensures it sends)
       fetch("https://script.google.com/macros/s/AKfycbwHPfExoW5bmvx-r-1g1E8knKzk5I3qJWvuX701kh6D8q8CC_UlKf1MxbJohuR3bMKE7g/exec", {
         method: "POST",
         keepalive: true, 
@@ -291,10 +290,8 @@
         })
       }).catch(e => console.error("Error logging rating", e));
 
-      // 4. Redirect after a 1.5 second delay so the customer sees the hook message
-      setTimeout(() => {
-        window.location.href = "https://g.page/r/CVpS_cOBUCQjEBM/review";
-      }, 1500);
+      // 4. Redirect INSTANTLY - no more setTimeout delays
+      window.location.href = "https://g.page/r/CVpS_cOBUCQjEBM/review";
     }
   }
 
