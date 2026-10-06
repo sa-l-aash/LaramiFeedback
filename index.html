@@ -5,7 +5,6 @@
   <title>Larami House Feedback</title>
 
   <style>
-
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -53,7 +52,6 @@
       box-sizing: border-box;
     }
 
-    /* SOURCE GROUP IMPROVED */
     .source-group {
       text-align: left;
       margin-bottom: 20px;
@@ -79,6 +77,7 @@
       flex-shrink: 0;
     }
 
+    /* STAR RATING IMPROVEMENTS */
     .stars {
       display: flex;
       justify-content: center;
@@ -89,12 +88,14 @@
     }
 
     .stars button {
-      font-size: 34px;
+      font-size: 40px;
       border: none;
       background: none;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      color: #e0e0e0; /* Blank/Gray color */
+      transition: transform 0.2s ease, color 0.2s ease;
       padding: 5px;
+      text-shadow: 0 0 2px rgba(0,0,0,0.1);
     }
 
     .stars button:hover {
@@ -131,21 +132,53 @@
       font-weight: bold;
     }
 
-    /* RESPONSIVE TWEAKS */
+    /* REDIRECT HOOK STYLES */
+    #redirectHook {
+      display: none;
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 8px;
+      background: #f9f9f9;
+    }
+
+    #redirectHook h3 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    
+    #redirectHook p {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .spinner {
+      border: 4px solid #e0e0e0;
+      border-top: 4px solid #FFD700; /* Gold spinner */
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     @media (max-width: 480px) {
       body {
         padding: 14px;
       }
-
       .title {
         font-size: 20px;
       }
-
       .stars button {
-        font-size: 30px;
+        font-size: 36px;
       }
     }
-
   </style>
 
 </head>
@@ -154,77 +187,49 @@
 
 <div class="container">
 
-  <img src="LaramiLogo.png" class="logo">
+  <img src="LaramiLogo.png" class="logo" alt="Larami House Logo">
 
   <div class="title">Larami House Narok 🏡</div>
   <div class="subtitle">Share your experience and help us improve.</div>
 
   <input type="text" id="guestName" placeholder="Your name">
 
-  <!-- SOURCE (RADIO ONLY ONE) -->
   <div class="source-group">
     <p>Where did you hear about us?</p>
-
-    <label class="source-option">
-      <input type="radio" name="source" value="TikTok">
-      TikTok
-    </label>
-
-    <label class="source-option">
-      <input type="radio" name="source" value="Instagram">
-      Instagram
-    </label>
-
-    <label class="source-option">
-      <input type="radio" name="source" value="Facebook">
-      Facebook
-    </label>
-
-    <label class="source-option">
-      <input type="radio" name="source" value="Booking.com">
-      Booking.com
-    </label>
-
-    <label class="source-option">
-      <input type="radio" name="source" value="Airbnb">
-      Airbnb
-    </label>
-
-    <label class="source-option">
-      <input type="radio" name="source" value="YouTube">
-      YouTube
-    </label>
-
-    <label class="source-option">
-      <input type="radio" name="source" value="Google Maps">
-      Google Maps
-    </label>
-
-    <label class="source-option">
-      <input type="radio" name="source" value="Friend">
-      Friend
-    </label>
-
+    <label class="source-option"><input type="radio" name="source" value="TikTok"> TikTok</label>
+    <label class="source-option"><input type="radio" name="source" value="Instagram"> Instagram</label>
+    <label class="source-option"><input type="radio" name="source" value="Facebook"> Facebook</label>
+    <label class="source-option"><input type="radio" name="source" value="Booking.com"> Booking.com</label>
+    <label class="source-option"><input type="radio" name="source" value="Airbnb"> Airbnb</label>
+    <label class="source-option"><input type="radio" name="source" value="YouTube"> YouTube</label>
+    <label class="source-option"><input type="radio" name="source" value="Google Maps"> Google Maps</label>
+    <label class="source-option"><input type="radio" name="source" value="Friend"> Friend</label>
   </div>
 
   <h2>How was your experience?</h2>
 
+  <!-- Changed emojis to text characters so we can color them with CSS/JS -->
   <div class="stars">
-    <button onclick="handleRating(1)">⭐</button>
-    <button onclick="handleRating(2)">⭐</button>
-    <button onclick="handleRating(3)">⭐</button>
-    <button onclick="handleRating(4)">⭐</button>
-    <button onclick="handleRating(5)">⭐</button>
+    <button onclick="handleRating(1)">★</button>
+    <button onclick="handleRating(2)">★</button>
+    <button onclick="handleRating(3)">★</button>
+    <button onclick="handleRating(4)">★</button>
+    <button onclick="handleRating(5)">★</button>
   </div>
 
+  <!-- Redirect Hook -->
+  <div id="redirectHook">
+    <h3>Awesome! 🌟</h3>
+    <p>Redirecting you to Google Maps to share your review...</p>
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Feedback Form for 1-3 stars -->
   <div id="feedbackForm">
     <h3>We're sorry we missed the mark.</h3>
     <p>Please tell us how we can improve.</p>
-
     <input type="text" id="room" placeholder="Room">
-
     <textarea id="comment" rows="5" placeholder="Type your feedback here..."></textarea>
-
     <button class="submit" onclick="submitFeedback()">Submit Feedback</button>
   </div>
 
@@ -235,7 +240,6 @@
 </div>
 
 <script>
-
   let selectedRating = 0;
 
   function getSource() {
@@ -243,21 +247,41 @@
     return el ? el.value : "";
   }
 
-  function handleRating(rating) {
+  // Function to color the stars up to the clicked number
+  function colorStars(rating) {
+    const stars = document.querySelectorAll('.stars button');
+    stars.forEach((star, index) => {
+      if (index < rating) {
+        star.style.color = '#FFD700'; // Fill with Gold
+      } else {
+        star.style.color = '#e0e0e0'; // Leave Blank/Gray
+      }
+    });
+  }
 
+  function handleRating(rating) {
     selectedRating = rating;
+    colorStars(rating); // Update star colors instantly
 
     const guestName = document.getElementById('guestName').value;
     const source = getSource();
 
     if (rating <= 3) {
       document.getElementById('feedbackForm').style.display = 'block';
-    }
-
+      document.getElementById('redirectHook').style.display = 'none';
+    } 
     else {
+      // 1. Hide the negative feedback form if they clicked 1-3 previously
+      document.getElementById('feedbackForm').style.display = 'none';
+      
+      // 2. Show the visual hook and spinner immediately
+      document.getElementById('redirectHook').style.display = 'block';
 
+      // 3. Send data to Google Sheets WITHOUT forcing the user to wait
+      // 'keepalive: true' ensures the data finishes sending even as the page redirects
       fetch("https://script.google.com/macros/s/AKfycbwHPfExoW5bmvx-r-1g1E8knKzk5I3qJWvuX701kh6D8q8CC_UlKf1MxbJohuR3bMKE7g/exec", {
         method: "POST",
+        keepalive: true, 
         body: JSON.stringify({
           name: guestName,
           room: "",
@@ -265,23 +289,16 @@
           feedback: "",
           source: source
         })
-      })
+      }).catch(e => console.error("Error logging rating", e));
 
-      .then(() => {
-        window.location.href =
-          "https://g.page/r/CVpS_cOBUCQjEBM/review";
-      })
-
-      .catch(() => {
-        window.location.href =
-          "https://g.page/r/CVpS_cOBUCQjEBM/review";
-      });
-
+      // 4. Redirect after a 1.5 second delay so the customer sees the hook message
+      setTimeout(() => {
+        window.location.href = "https://g.page/r/CVpS_cOBUCQjEBM/review";
+      }, 1500);
     }
   }
 
   function submitFeedback() {
-
     const guestName = document.getElementById('guestName').value;
     const room = document.getElementById('room').value;
     const comment = document.getElementById('comment').value;
@@ -300,9 +317,7 @@
         source: source
       })
     });
-
   }
-
 </script>
 
 </body>
